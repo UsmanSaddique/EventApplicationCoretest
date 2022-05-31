@@ -1,0 +1,83 @@
+﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - EventApplicationCore</title>
+
+
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+        <link href="~/lib/datetimepicker/jqueryui.css" rel="stylesheet" />
+    </environment>
+
+
+
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+
+    <environment names="Development">
+        <link rel="icon" type="image/png" href="/Logintheme/images/icons/favicon.ico" />
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="/Logintheme/vendor/bootstrap/css/bootstrap.min.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="/Logintheme/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="/Logintheme/vendor/animate/animate.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="/Logintheme/vendor/css-hamburgers/hamburgers.min.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="/Logintheme/vendor/select2/select2.min.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="/Logintheme/css/util.css">
+        <link rel="stylesheet" type="text/css" href="/Logintheme/css/main.css">
+   
+    </environment>
+
+    @*<script>
+        $(document).ready(function () {
+            function DisableBackButton() {
+                window.history.forward()
+            }
+            DisableBackButton();
+            window.onload = DisableBackButton;
+            window.onpageshow = function (evt) { if (evt.persisted) DisableBackButton() }
+            window.onunload = function () { void (0) }
+        });
+    </script>*@
+
+    @Html.Raw(JavaScriptSnippet.FullScript)
+</head>
+<body>
+    
+    <div >
+        @RenderBody()
+    
+    </div>
+    
+   
+    
+
+
+    <environment names="Staging,Production">
+
+        <!--===============================================================================================-->
+        <script src="/Logintheme/vendor/jquery/jquery-3.2.1.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="/Logintheme/vendor/bootstrap/js/popper.js"></script>
+        <script src="/Logintheme/vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="/Logintheme/vendor/select2/select2.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="/Logintheme/vendor/tilt/tilt.jquery.min.js"></script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

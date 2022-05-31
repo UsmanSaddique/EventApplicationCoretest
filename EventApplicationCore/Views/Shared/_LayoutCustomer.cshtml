@@ -1,0 +1,184 @@
+﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+@using Microsoft.AspNetCore.Http;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Dashboard</title>
+    <!-- Bootstrap core CSS -->
+    @*<link href="~/theme/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">*@
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="~/theme/assets/css/fontawesome.css">
+    @*Spice link*@
+    <link href="~/Spice/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="~/Spice/themes/css/main.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/Spice/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" href="~/Spice/lib/bootstrap/dist/css/bootstrap.css" />
+    <link href="~/Spice/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="~/Spice/css/site.css" type="text/css" />
+    <link type="text/css" rel="stylesheet" href="~/Spice/css/magiczoomplus.css" />
+    <!-- global styles -->
+    <link href="~/themes/css/flexslider.css" rel="stylesheet" />
+
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+
+        <link href="~/lib/datetimepicker/jqueryui.css" rel="stylesheet" />
+        <link href="~/css/main.css" rel="stylesheet" />
+        <link href="~/css/my-slider-1.0.0.css" rel="stylesheet" />
+    </environment>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
+    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+
+    <!-- Bootstrap Date-Picker Plugin -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+    <environment names="Development">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="~/bootstrap-4.3.1/datapicker/bootstrap-datepicker.js"></script>
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+
+    </environment>
+
+
+
+
+    <script>
+                            //$(document).ready(function () {
+                            //    function DisableBackButton() {
+                            //        window.history.forward()
+                            //    }
+                            //    DisableBackButton();
+                            //    window.onload = DisableBackButton;
+                            //    window.onpageshow = function (evt) { if (evt.persisted) DisableBackButton() }
+                            //    window.onunload = function () { void (0) }
+                            //});
+    </script>
+
+    @Html.Raw(JavaScriptSnippet.FullScript)
+</head>
+<body>
+    <header class="m-0 p-0">
+        <nav class="navbar navbar-expand-lg bg-dark ">
+
+            <div class="container-fluid">
+                <a asp-area="" asp-controller="Customer" asp-action="Dashboard" class="navbar-brand "><h2 class="text-white">Dashboard<em>.</em></h2></a>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a asp-area="" asp-controller="Booking" asp-action="BookingVenue" class="nav-link text-white">Book Event</a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="" asp-controller="ShowAllBooking" asp-action="AllBookings" class="nav-link text-white">Booking Status</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a asp-area="" asp-controller="BookingTour" asp-action="Index" class="nav-link text-white">Book Tour</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a asp-area="" asp-controller="BookHall" asp-action="Index" class="nav-link text-white">Book Hall</a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="" asp-controller="DBook" asp-action="Index" class="nav-link text-white">Book Drwery</a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="" asp-controller="Customer" asp-action="ChangePassword" class="nav-link text-white">ChangePassword</a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="" asp-controller="UserProfile" asp-action="Profile" class="nav-link text-white">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="" asp-controller="Customer" asp-action="ChangePassword" class="nav-link text-white">ChangePassword</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a asp-area="" asp-controller="Login" asp-action="Logout" class="nav-link text-white">LogOut</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    @*<nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a asp-area="" asp-controller="Customer" asp-action="Dashboard" class="navbar-brand">Dashboard</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a asp-area="" asp-controller="Booking" asp-action="BookingVenue">Book Event</a></li>
+                        <li><a asp-area="" asp-controller="ShowAllBooking" asp-action="AllBookings">Booking Status</a></li>
+                        <li><a asp-area="" asp-controller="UserProfile" asp-action="Profile">Profile</a></li>
+                        <li><a asp-area="" asp-controller="Customer" asp-action="ChangePassword">ChangePassword</a></li>
+                        <li style="margin-left:300px"> <a href="#">Hi @Context.Session.GetString("Username") !</a> </li>
+
+                        <li><a asp-area="" asp-controller="Login" asp-action="Logout">LogOut</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>*@
+    <div class="container-fluid  ">
+
+        @RenderBody()
+        <hr />
+
+    </div>
+    <footer>
+        <p>&copy;Event Company</p>
+    </footer>
+    <environment names="Development">
+
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="~/js/my-slider-1.0.0.js"></script>
+        <script src="~/lib/datetimepicker/jqueryui.js"></script>
+    </environment>
+
+    <environment names="Staging,Production">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk"></script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"></script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+
+
+    <link href="~/lib/dataTablesScripts/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/dataTablesScripts/responsive.bootstrap.min.css" rel="stylesheet" />
+    <script src="~/lib/dataTablesScripts/jquery.dataTables.min.js"></script>
+    <script src="~/lib/dataTablesScripts/dataTables.bootstrap4.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,109 @@
+﻿@model EventApplicationCore.Model.Venue
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="container">
+    @if (TempData["VenueMessage"] != null)
+    {
+        <p class="alert alert-success" id="successMessage">@TempData["VenueMessage"]</p>
+    }
+
+    <form method="post" enctype="multipart/form-data" asp-controller="Venue" asp-action="Add">
+        <div class="col-xs-offset-0 col-xs-4">
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
+            <h3><span class="label label-info">Add Venue</span></h3>
+
+            <div class="form-group">
+                <label class="control-label" asp-for="VenueName">Venue Name</label>
+                <input asp-for="VenueName" type="text" onblur="CheckVenueNameExists();" class="form-control" />
+                <span asp-validation-for="VenueName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="VenueCost">Venue Cost</label>
+                <input asp-for="VenueCost" type="text" class="form-control" />
+                <span asp-validation-for="VenueCost" class="text-danger"></span>
+            </div>
+             <div class="col-lg-12">
+                        <label class="control-label" asp-for="Area">Area</label>
+                        <select asp-for="Area" class="form-control"
+                                asp-items="@(new SelectList(string.Empty,"Id", "AreaName"))"></select>
+                        <span asp-validation-for="Area" class="text-danger"></span>
+               </div>
+        
+             
+
+            <div class="form-group">
+                <div class="controls">
+                    <label class="control-label">Upload Venue</label>
+                    <input required type="file" title="Please Upload Venue" name="files" multiple />
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <input id="Submit1" type="submit" class="btn btn-success" value="Add New Venue" />
+            </div>
+
+            <div class="form-actions">
+                <a href="/AllVenue/ViewAllVenues">Show All Venue</a>
+            </div>
+
+        </div>
+    </form>
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            debugger;
+            $.getJSON('@Url.Content("~/")' + "api/AreaAPI", function (data)
+            {
+                
+            var items = '';
+            $("#Area").empty();
+            $.each(data, function (i, subcategory)
+            {
+                if (i == 0)
+                {
+                    items += "<option value='" + "" + "'>" + "----Select----" + "</option>";
+                }
+                else
+                {
+                    items += "<option value='" + subcategory.Id + "'>" + subcategory.AreaName + "</option>";
+                }
+            });
+            $('#Area').html(items);
+
+                  if ('@Model.Area' != '')
+                  {
+                      $('#Area').val('@Model.Area');
+               }
+        });
+
+
+
+
+        });
+    function CheckVenueNameExists()
+    {
+        var url = '@Url.Content("~/")' + "Venue/CheckVenueNameExists";
+        var source = "#VenueName";
+        $.post(url, { venueName: $(source).val() },
+            function (data)
+                {
+                    if (data)
+                    {
+                        $(source).val('');
+                        alert("VenueName Already Used try unique one!");
+                    }
+                    else
+                    {
+
+                    }
+                });
+    }
+
+    </script>
+
+</div>

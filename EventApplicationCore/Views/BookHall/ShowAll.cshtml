@@ -1,0 +1,55 @@
+﻿@model IEnumerable<EventApplicationCore.Model.BookHallVM>
+@{ Layout = "~/Views/Shared/_LayoutCustomer.cshtml"; }
+
+<div class="container-fluid">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div @*class="ibox-title"*@>
+                @*<h5>List of Customers</h5>*@
+                <div class="ibox-content">
+                    <div class="text-center">
+
+                        <a class="btn btn-secondary pull-left m-t-n-xs" asp-controller="BookHall" asp-action="Index"> <strong> Book More  </strong> </a>
+                    </div>
+                    <br />
+                    <br />
+                    <table class="table table-bordered table-striped dataTables-example">
+                        <thead>
+                            <tr>
+
+                                <th>HAll Name</th>
+                                <th>EvenT Type</th>
+                                <th>Registor By</th>
+                                <th>Date</th>
+                                <th>No of Guest</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+
+
+                                @foreach (var item in Model)
+                                {
+                            <tr>
+                                <td>@item.VenueName</td>
+                                <td>@item.EventType</td>
+                                <td>@item.Createdby</td>
+                                <td>@item.BookingDate</td>
+                                <td>@item.GuestCount</td>
+                               
+                                <td>
+                                    <a asp-action="DeleteBooking" class="btn btn-sm btn-danger m-t-n-xs" onclick="return confirm('Remove Booking ')" asp-route-id="@item.BookingHallID"><i class="fa fa-trash" title="Remove"></i></a>
+                                    @*<a asp-action="CustomerDetail" class="btn btn-sm btn-success m-t-n-xs" asp-route-id="@item.Id"><i class="fa fa-list-alt"></i></a>*@
+                                    @*<a asp-action="DeleteCustomer" class="btn btn-sm btn-danger m-t-n-xs" asp-route-id="@item.Id"><i class="fa fa-trash-o" title="Delete"></i></a>*@
+                                </td>
+                            </tr>
+                                }}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

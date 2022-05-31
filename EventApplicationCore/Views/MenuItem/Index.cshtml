@@ -1,0 +1,116 @@
+﻿@model IEnumerable<EventApplicationCore.Model.MenuItem>
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+
+<br />
+<br />
+
+<div class="border backgroundWhite">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Dowery Item List</h2>
+        </div>
+        <div class="col-6 text-right">
+            <p>
+                <a asp-action="Create" class="btn btn-info"> <i class="fa fa-plus" aria-hidden="true"></i> &nbsp;Create New</a>
+            </p>
+        </div>
+    </div>
+    <br />
+    <div>
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-striped border">
+                <tr class="table-secondary">
+                    <th>
+                        @Html.DisplayNameFor(m => m.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.Price)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.CategoryId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.SubCategoryId)
+                    </th>
+                    <th></th>
+                    <th></th>
+
+                </tr>
+                @foreach (var item in Model)
+                {
+
+                    <tr>
+                        <td>@Html.DisplayFor(m => item.Name) </td>
+
+                        <td>@Html.DisplayFor(m => item.Price) </td>
+
+                        <td>@Html.DisplayFor(m => item.Category.Name) </td>
+
+                        <td>@Html.DisplayFor(m => item.SubCategory.Name) </td>
+
+                        <td>
+                        <td style=" width:150px;">
+                            <div class="btn-group" role="group">
+                                <a class="btn btn-primary text-white" asp-action="Edit" asp-route-Id="@item.Id">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a class="btn btn-success text-white" asp-action="Details" asp-route-Id="@item.Id">
+                                    <i class="fa fa-list-alt"></i>
+                                </a>
+                                <a class="btn btn-danger text-white" id="fordelete" onclick="forDeletion(@item.Id)">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </td> </td>
+
+                    </tr>
+                }
+            </table>}
+        else
+        {
+            <p>No Menu Item Exits exist</p>
+        }
+    </div>
+</div>
+
+
+<script>
+
+    function forDeletion(id) {
+            event.preventDefault();
+            $('<div title="Confirm Box"></div>').dialog({
+                open: function (event, ui) {
+                    $(this).html("Yes or No question?");
+                },
+                close: function () {
+                    $(this).remove();
+                },
+                resizable: false,
+                height: 140,
+                modal: true,
+                buttons: {
+                    'Yes': function () {
+                        $(this).dialog('close');
+                        //$.post('/Admin/MenuItemControllers/Delete?id=' + id);
+                        var result = $.post('@Url.Action("Delete", "MenuItem")?id=' + id);
+
+
+                        location.reload();
+                        },
+                    'No': function () {
+                        $(this).dialog('close');
+                        $.post('url/theOtherValueYouWantToPAss');
+                    }
+                }
+
+
+
+        });
+    }
+
+</script>

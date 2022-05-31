@@ -1,0 +1,17 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+<style>
+    p > a {
+        color: white;
+    }
+</style>
+@if (ViewData["BookingLightingMessage"] != null)
+{
+    <p class="alert alert-success" id="successMessage" style="margin-top:110px;">@ViewData["BookingLightingMessage"]</p>
+    <h3>Next Process BookFlowers</h3>
+    <p class="btn btn-success">
+        @Html.ActionLink("Click Here to Book Flower", "BookFlower", "BookFlower")
+    </p>
+}
+

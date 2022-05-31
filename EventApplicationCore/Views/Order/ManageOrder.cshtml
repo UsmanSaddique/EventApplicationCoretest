@@ -1,0 +1,79 @@
+﻿@model List<EventApplicationCore.Model.OrderDetailsViewModel>
+@{@using EventApplicationCore.Utility
+        ViewData["Title"] = "ManageOrder";
+        Layout = "~/Views/Shared/_AdminLayout.cshtml"; }
+<br />
+<h2 > <strong>ManageOrder</strong></h2>
+<form method="post">
+    <br />
+    @if (Model.Count > 0)
+    {
+        <div class="container row bg-white p-2 border mb-3 rounded"style="width:100%; margin:0 auto">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4 pb-3 pt-3" style="padding-top:40px">
+                    <div class="backgroundWhiteBorder10Padding">
+                        <div class="row">
+                            <div class="col-4">
+                                <h3><strong>Order Number :@item.OrderHeader.Id</strong></h3>
+                                <ul class="text-danger">
+                                    @foreach (var details in item.OrderDetails)
+                                    {
+                                        <li ><h4>@details.Name x @details.Count </h4></li>
+                                    }
+                                </ul>
+                            </div>
+
+                            <div class="col-4">
+                                <div class="input-group pb-2">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">Time</span>
+                                    </div>
+                                    <input  type="text" class="border rounded form-control" readonly value="@item.OrderHeader.PickUpTime" />
+                                </div>
+                                @{ 
+                                    var comments = item.OrderHeader.Comments;
+                                    if (comments==null||comments.Trim().Length==0)
+                                    {
+                                        item.OrderHeader.Comments = "No Instruction";
+                                    }
+                                }
+                                <textarea asp-for="@item.OrderHeader.Comments" readonly class="rounded border form-control" style="width:100%;height:75px;" ></textarea>
+                            </div>
+                            <div class="col-3 offset-1 d-flex align-content-center">
+                                @if (item.OrderHeader.Status.Equals(SD.StatusSubmitted))
+                                {
+                                    <div class="col-12">
+                                        <button type="submit" asp-action="OrderPrepare" asp-route-OrderId="@item.OrderHeader.Id" class="btn btn-info mb-3">
+                                            <i class="fa fa-check"></i> &nbsp; Start Packing 
+                                        </button>
+                                        <button type="submit" asp-action="OrderCancel" asp-route-OrderId="@item.OrderHeader.Id" class="btn btn-danger   mb-3">
+                                            <i class="fa fa-times"></i> &nbsp; Cancel Order
+                                        </button>
+                                    </div>
+                                }
+                                else
+                                {
+                                  
+                                        @if (item.OrderHeader.Status.Equals(SD.StatusInProcess))
+                                        {
+                                            <div class="col-12 "  >
+                                                <button type="submit" asp-action="OrderReady" asp-route-OrderId="@item.OrderHeader.Id" class="btn btn-success   mb-3">
+                                                    <i class="fa fa-flag-checkered"></i> &nbsp; Order Ready
+                                                </button>
+                                                <button type="submit" asp-action="OrderCancel" asp-route-OrderId="@item.OrderHeader.Id" class="btn btn-danger  mb-3">
+                                                    <i class="fa fa-times"></i> &nbsp; Cancel Order
+                                                </button>
+                                            </div>
+                                        
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</form>
+

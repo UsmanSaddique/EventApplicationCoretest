@@ -1,0 +1,318 @@
+﻿@model EventApplicationCore.Model.RegistrationViewModel
+@{ Layout = "~/Views/Shared/_LayoutCustomer.cshtml"; }
+<div class="container" style="margin-top:110px;">
+    <br />
+    <form asp-controller="UserProfile" asp-action="Update" enctype="multipart/form-data">
+        <div class="panel panel-default">
+            <div class="navbar bg-info"><h4 class="display-2 m-2 text-white">Profile</h4></div>
+            <div class="panel-body">
+                <div class="row">
+                    <input asp-for="ID" type="hidden" class="form-control" />
+                    <div class="col-lg-4">
+                        <label class="control-label" asp-for="Name">Name</label>
+                        <input asp-for="Name" type="text" class="form-control" />
+                    </div>
+                    <div class="col-lg-4">
+                        <label class="control-label" asp-for="Mobileno">Mobileno</label>
+                        <input asp-for="Mobileno" name="Mobileno" type="text" class="form-control" />
+                    </div>
+                    <div class="col-lg-4">
+                        <label class="control-label" asp-for="Address">Address</label>
+                        <input asp-for="Address" type="text" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label class="control-label" asp-for="EmailID">EmailID</label>
+                        <input asp-for="EmailID" type="text" class="form-control" />
+                    </div>
+                    <div class="col-lg-4" hidden>
+                        <label class="control-label" asp-for="Gender">Gender</label>
+                        <input asp-for="Gender" readonly="readonly" type="text" class="form-control" />
+                    </div>
+                    <div class="col-lg-4" hidden>
+                        <label class="control-label" asp-for="CountryName">Country</label>
+                        <input asp-for="CountryName" type="text" class="form-control" />
+                    </div>
+                    <div class="col-lg-4">
+                        <label class="control-label" asp-for="Birthdate">Birthdate</label>
+                        <input asp-for="Birthdate" id="Birthdate" type="text" class="form-control" />
+                        <span asp-validation-for="Birthdate" class="text-danger"></span>
+
+                    </div>
+                    <div class="col-lg-4">
+                        <label class="control-label" asp-for="Username">Username</label>
+                        <input asp-for="Username" required type="text" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label class="control-label" asp-for="Country">Country</label>
+                        <select asp-for="Country"
+                                class="form-control"
+                                asp-items="@(new SelectList(string.Empty,"CountryID", "Name"))"></select>
+                        <span asp-validation-for="Country" class="text-danger"></span>
+                    </div>
+
+
+
+
+                    <div class="col-lg-4">
+                        <label class="control-label" asp-for="State">State</label>
+                        <select asp-for="State" class="form-control"
+                                asp-items="@(new SelectList(string.Empty,"StateID", "StateName"))"></select>
+                        <span asp-validation-for="State" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4">
+                        <label class="control-label" asp-for="City">City</label>
+                        <select asp-for="City" class="form-control"
+                                asp-items="@(new SelectList(string.Empty,"CityID", "CityName"))"></select>
+                        <span asp-validation-for="City" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4">
+                        <label class="control-label" asp-for="Area">Area</label>
+                        <select asp-for="Area" class="form-control"
+                                asp-items="@(new SelectList(string.Empty,"Id", "AreaName"))"></select>
+                        <span asp-validation-for="Area" class="text-danger"></span>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                  
+                </div>
+                <div class="row">
+                    <div class="col-lg-4" hidden>
+                        <label class="control-label" asp-for="StateName">State</label>
+                        <input asp-for="StateName" type="text" class="form-control" />
+                    </div>
+                    <div class="col-lg-4" hidden>
+                        <label class="control-label" asp-for="CityName">City</label>
+                        <input asp-for="CityName" type="text" class="form-control" />
+                    </div>
+
+                </div>
+                <div class="row">
+
+                </div>
+                <div class="row ">
+                    <button asp-action="Update" asp-controller="UserProfile" type="submit" class=" btn btn-primary btn-lg" style="margin:10px;">Update Profile</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(document).ready(function ()
+    {
+        $.getJSON( '@Url.Content("~/")' + "api/CountryAPI", function (data)
+        {
+            var items = '';
+            $("#Country").empty();
+            $.each(data, function (i, subcategory)
+            {
+                if (i == 0)
+                {
+                    items += "<option value='" + "" + "'>" + "----Select----" + "</option>";
+                }
+                else
+                {
+                    items += "<option value='" + subcategory.CountryID + "'>" + subcategory.Name + "</option>";
+                }
+            });
+            $('#Country').html(items);
+
+               if ('@Model.Country' !='')
+               {
+                   $('#Country').val('@Model.Country');
+               }
+        });
+
+        $('#Country').change(function ()
+        {
+            var url = '@Url.Content("~/")' + "api/StateAPI";
+                var ddlsource = "#Country";
+                $.post(url, { id: $(ddlsource).val() }, function (data)
+                {
+                    var items = '';
+                    $("#State").empty();
+                    $.each(data, function (i, subcategory)
+                    {
+                        items += "<option value='" + subcategory.StateID + "'>" + subcategory.StateName + "</option>";
+                    });
+                    $('#State').html(items);
+
+                });
+          });
+
+        $('#State').change(function ()
+            {
+             var url = '@Url.Content("~/")' + "api/CityAPI";
+             var ddlsource = "#State";
+                $.post(url, { id: $(ddlsource).val() }, function (data)
+                {
+                    var items = '';
+                    $("#City").empty();
+                    $.each(data, function (i, subcategory) {
+                        items += "<option value='" + subcategory.CityID + "'>" + subcategory.CityName + "</option>";
+                    });
+                    $('#City').html(items);
+                });
+        });
+
+                   $('#City').change(function ()
+            {
+             var url = '@Url.Content("~/")' + "api/AreaAPI";
+             var ddlsource = "#City";
+                $.post(url, { id: $(ddlsource).val() }, function (data)
+                {
+                    var items = '';
+                    $("#Area").empty();
+                    $.each(data, function (i, subcategory) {
+                        items += "<option value='" + subcategory.Id + "'>" + subcategory.AreaName + "</option>";
+                    });
+                    $('#Area').html(items);
+                });
+                   });
+
+        RebindState();
+    });
+
+
+    function RebindState()
+    {
+        if ('@Model.Country' != '')
+        {
+                var url = '@Url.Content("~/")' + "api/StateAPI";
+                var ddlsource = "#Country";
+                $.post(url, { id: '@Model.Country' }, function (data)
+                {
+                    var items = '';
+                    $("#State").empty();
+                    $.each(data, function (i, subcategory)
+                    {
+                        items += "<option value='" + subcategory.StateID + "'>" + subcategory.StateName + "</option>";
+                    });
+                    $('#State').html(items);
+
+                    if ('@Model.State' !='')
+                     {
+                        $('#State').val('@Model.State');
+                        RebindCities();
+                     }
+                });
+
+        }
+    }
+
+    function RebindCities()
+    {
+        if ('@Model.State' != '')
+        {
+             var url = '@Url.Content("~/")' + "api/CityAPI";
+             var ddlsource = "#State";
+                $.post(url, { id: '@Model.State' }, function (data)
+                {
+                    var items = '';
+                    $("#City").empty();
+                    $.each(data, function (i, subcategory) {
+                        items += "<option value='" + subcategory.CityID + "'>" + subcategory.CityName + "</option>";
+                    });
+                    $('#City').html(items);
+
+                     if ('@Model.City' !='')
+                     {
+                         $('#City').val('@Model.City');
+                         RebindArea()
+                     }
+                });
+        }
+    }
+      function RebindArea()
+    {
+        if ('@Model.State' != '')
+        {
+             var url = '@Url.Content("~/")' + "api/AreaAPI";
+            var ddlsource = "#City";
+                $.post(url, { id: '@Model.State' }, function (data)
+                {
+                    var items = '';
+                    $("#Area").empty();
+                    $.each(data, function (i, subcategory) {
+                        items += "<option value='" + subcategory.Id + "'>" + subcategory.AreaName + "</option>";
+                        
+                    });
+                    $('#Area').html(items);
+
+                     if ('@Model.Area' !='')
+                     {
+                         $('#City').val('@Model.Area');
+                         
+                     }
+                });
+        }
+    }
+
+
+</script>
+
+<script type="text/javascript">
+
+    $(document).ready(function ()
+    {
+        $("#Birthdate").datepicker
+            ({
+            dateFormat: "yy-mm-dd",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-100:+100",
+            onSelect: function (date)
+            {
+                var dob = new Date(date);
+                var today = new Date();
+
+                if (dob.getFullYear() + 18 < today.getFullYear())
+                {
+
+                }
+                else
+                {
+                    $("#Birthdate").val('');
+                    alert("You are not eligible for Registration");
+                }
+            }
+        });
+    });
+
+    function OnlyNumeric(evt)
+    {
+        var charCode = (evt.which) ? evt.which : evt.keyCode
+        if ((charCode < 48 || charCode > 57))
+        {
+            if (charCode == 8 || charCode == 46 || charCode == 0)
+            {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    }
+
+    function CheckUsernameExists()
+    {
+        var url = '@Url.Content("~/")' + "Registration/CheckUserNameExists";
+        var source = "#Username";
+        $.post(url, { Username: $(source).val() }, function (data)
+                {
+                    if (data)
+                    {
+                        $(source).val('');
+                        alert("Username Already Used try unique one!");
+                    }
+                    else
+                    {
+
+                    }
+                });
+    }
+</script>

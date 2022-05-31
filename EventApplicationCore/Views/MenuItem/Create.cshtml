@@ -1,0 +1,191 @@
+﻿@model EventApplicationCore.Model.MenuItemViewModel
+@using EventApplicationCore.Extensions
+@{
+
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+
+<br />
+<h2 class="text-info">Create MenuItem</h2>
+<br />
+
+<form method="post" asp-action="Create" enctype="multipart/form-data">
+    <div class="border " style="width:100%; margin-left:30px;" >
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="MenuItem.Name" class="col-form-label"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="MenuItem.Name" class="form-control" />
+            </div>
+            <span asp-validation-for="MenuItem.Name" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="MenuItem.Discription" class="col-form-label"></label>
+            </div>
+            <div class="col-5">
+                @Html.TextAreaFor(m => m.MenuItem.Discription)
+            </div>
+            <span asp-validation-for="MenuItem.Discription" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="MenuItem.Price" class="col-form-label"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="MenuItem.Price" class="form-control" />
+            </div>
+            <span asp-validation-for="MenuItem.Price" class="text-danger"></span>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="MenuItem.Image" class="col-form-label"></label>
+            </div>
+            <div class="col-5">
+                <input type="file" name="files" multiple class="form-control" />
+            </div>
+            <span asp-validation-for="MenuItem.Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="MenuItem.CategoryId" class="col-form-label"></label>
+            </div>
+            <div class="col-5">
+                <select asp-for="@Model.MenuItem.CategoryId" id="CategoryId" asp-items="Model.Category.ToSelectListItems(Model.MenuItem.CategoryId)" class="form-control"></select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="MenuItem.SubCategoryId" class="col-form-label"></label>
+            </div>
+            <div class="col-5">
+                <select asp-for="MenuItem.SubCategoryId"  id="SubCategoryId" asp-items="Model.Category.ToSelectListItems(Model.MenuItem.SubCategoryId)" class="form-control"></select>
+            </div>
+        </div>
+    
+         
+        <div class="form-group row">
+            <div class="col-5 offset-2">
+                <div class="row">
+                    <div class="col-6">
+                        <input type="submit" class="btn btn-info    " value="Create" />
+                        <a asp-action="Index" class="btn btn-success">Back to List</a>
+                    </div>
+                    <div class="col-6">
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+
+    <script>
+     
+
+
+
+        tinymce.init({
+            selector: 'textarea',
+            plugins: "lists",
+            menubar: 'file edit format'
+        });
+
+
+    </script>
+    <script>
+  $(document).ready(function () {
+            var size = "@Model.MenuItem.ItemSize";
+      $('#menuItemSize').val(size);
+            $('#b0').click(function () {
+
+                if ($(this).prop("checked") == true) {
+                    size += "S ";
+                    $('#menuItemSize').val(size);}
+                else if ($(this).prop("checked") == false) {
+                    size = size.replace('S ', '');
+                    $('#menuItemSize').val(size);
+                }
+            });
+            $('#b1').click(function () {
+
+                if ($(this).prop("checked") == true) {
+
+                    size += "M ";
+                    $('#menuItemSize').val(size);
+                }
+                else if ($(this).prop("checked") == false) {
+
+                    size = size.replace('M ', '');
+                    $('#menuItemSize').val(size);
+                }
+            });
+            $('#b2').click(function () {
+
+                if ($(this).prop("checked") == true) {
+
+                    size += "L ";
+                    $('#menuItemSize').val(size);
+                }
+                else if ($(this).prop("checked") == false) {
+
+                    size =size.replace('L ', '');
+                    $('#menuItemSize').val(size);
+                }
+            });
+            $('#b3').click(function () {
+
+                if ($(this).prop("checked") == true) {
+
+                    size += "Xl ";
+                    $('#menuItemSize').val(size);
+                }
+                else if ($(this).prop("checked") == false) {
+
+                    size =size.replace('Xl ', '');
+                    $('#menuItemSize').val(size);
+                }
+            });
+      //$('#menuItemSize').append(size);
+     
+
+        });
+    </script>
+    <script type="text/javascript">
+      
+
+    $(document).ready(function () {
+        getSubCategory();
+        $('#CategoryId').change(function () {
+            getSubCategory();
+        });
+
+    });
+    function getSubCategory() {
+        var url = '@Url.Content("~/")' + "SubCategory/GetSubCategory";
+        var ddlsource = '#CategoryId';
+        $.getJSON(url, { id: $(ddlsource).val() }, function (data) {
+            var item = '';
+            $('#SubCategoryId').empty();
+            $.each(data, function (i, subcategory) {
+                debugger;;
+
+                item += "<option value='" + subcategory.Value + "'>" + subcategory.Text + "</option>";
+            });
+
+            $('#SubCategoryId').html(item);
+        })
+    }
+
+    </script>
+
+}
+@{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -1,0 +1,14 @@
+﻿@{ Layout = "~/Views/Shared/_LayoutCustomer.cshtml"; }
+
+@if (ViewData["BookingEquipmentMessage"] != null)
+{
+    <style>
+        p > a {
+            color: white;
+        }
+    </style>
+                    <p class="alert alert-success" style="margin-top:110px;" id="successMessage">@ViewData["BookingEquipmentMessage"]</p>
+                                    <h3>Click Here To Return to DashBoard</h3>
+                                                    <p class="btn btn-success">
+                                                        @Html.ActionLink("Click Here to Book Food", "Dashboard", "Customer")
+                                                    </p>}

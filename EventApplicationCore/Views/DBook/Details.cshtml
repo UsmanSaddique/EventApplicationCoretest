@@ -1,0 +1,163 @@
+﻿@model EventApplicationCore.Model.ShoppingCart
+@using EventApplicationCore.Extensions
+@{ Layout = "~/Views/Shared/_LayoutCustomer.cshtml"; }
+
+<br />
+<h2 class="text-info">Item Details</h2>
+<br />
+
+<form method="post" asp-action="Details" asp-controller="DBook">
+    <div class="border backgroundWhite row">
+
+        <input asp-for="MenuItemId" hidden />
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-12 pb-4 d-md-none">
+            <img src="@Model.MenuItem.Image" width="100%" style="border-radius:5px;border: 1px solid #bbb9b9;" />
+        </div>
+        <div class="col-md-8">
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="MenuItem.Name" class="text-info font-weight-bold"></label>
+                </div>
+                <div class="col-md-8">
+                    <input asp-for="MenuItem.Name" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="MenuItem.Discription" class="text-info font-weight-bold"></label>
+                </div>
+                <div class="col-md-8">
+                    <div class="border p-2">
+                        @Html.Raw(Model.MenuItem.Discription)
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="MenuItem.Price" class="text-info font-weight-bold"></label>
+                </div>
+                <div class="col-md-8">
+                    <input asp-for="MenuItem.Price" disabled class="form-control" />
+                </div>
+
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="MenuItem.CategoryId" class="text-info font-weight-bold"></label>
+                </div>
+                <div class="col-md-8">
+                    <input asp-for="MenuItem.Category.Name" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="MenuItem.SubCategoryId" class="text-info font-weight-bold"></label>
+                </div>
+                <div class="col-md-8">
+                    <input asp-for="MenuItem.SubCategory.Name" disabled class="form-control" />
+                </div>
+            </div>
+          
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="Count" class="text-info font-weight-bold"></label>
+                </div>
+                <div class="col-md-8">
+                    <input asp-for="Count" class="form-control" />
+                    <span asp-validation-for="Count" class="text-danger"></span>
+                </div>
+            </div>
+
+
+ 
+
+
+
+            <div class="form-group row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                    <a asp-action="Index" class="btn btn-success form-control">Back to List</a>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" value="Add to Cart" class="btn btn-primary form-control">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 offset-1 d-none d-md-block">
+            <a href="@Model.MenuItem.Image" class="MagicZoom"> <img src="@Model.MenuItem.Image" width="100%" style="border-radius:5px;border: 1px solid #bbb9b9;" /></a>
+        </div>
+
+
+
+    </div>
+
+
+
+</form>
+
+@section Scripts{
+
+    <script>
+  $(document).ready(function () {
+            var size = "@Model.ItemSize";
+      $('#menuItemSize').val(size);
+            $('#b0').click(function () {
+
+                if ($(this).prop("checked") == true) {
+                    size = "S ";
+                    $('#menuItemSize').val(size);}
+                else if ($(this).prop("checked") == false) {
+                    size = size.replace('S ', '');
+                    $('#menuItemSize').val(size);
+                }
+            });
+            $('#b1').click(function () {
+
+                if ($(this).prop("checked") == true) {
+
+                    size = "M ";
+                    $('#menuItemSize').val(size);
+                }
+                else if ($(this).prop("checked") == false) {
+
+                    size = size.replace('M ', '');
+                    $('#menuItemSize').val(size);
+                }
+            });
+            $('#b2').click(function () {
+
+                if ($(this).prop("checked") == true) {
+
+                    size = "L ";
+                    $('#menuItemSize').val(size);
+                }
+                else if ($(this).prop("checked") == false) {
+
+                    size =size.replace('L ', '');
+                    $('#menuItemSize').val(size);
+                }
+            });
+            $('#b3').click(function () {
+
+                if ($(this).prop("checked") == true) {
+
+                    size += "Xl ";
+                    $('#menuItemSize').val(size);
+                }
+                else if ($(this).prop("checked") == false) {
+
+                    size =size.replace('Xl ', '');
+                    $('#menuItemSize').val(size);
+                }
+            });
+      //$('#menuItemSize').append(size);
+
+
+        });
+    </script>
+
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

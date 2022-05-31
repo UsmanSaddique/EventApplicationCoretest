@@ -1,0 +1,244 @@
+﻿@model EventApplicationCore.Model.BookingVM
+@{
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+<form asp-controller="BookEquipment" asp-action="Equipment" method="post">
+    <div class="container" style="margin-top:110px;">
+
+        <div class="col-xs-offset-0 col-xs-4">
+            <h3><span class="label label-info">Book Equipment</span></h3>
+            <div class="form-group">
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                @for (int i = 0; i < Model.bookingEquipment.EquipmentList.Count(); i++)
+                {
+    <input asp-for="@Model.bookingEquipment.EquipmentList[i].EquipmentChecked" type="checkbox" />
+                    <label asp-for="@Model.bookingEquipment.EquipmentList[i].EquipmentID">@Model.bookingEquipment.EquipmentList[i].EquipmentName</label>
+                                    <input type="hidden" asp-for="@Model.bookingEquipment.EquipmentList[i].EquipmentID" />
+                                                    <input type="hidden" asp-for="@Model.bookingEquipment.EquipmentList[i].EquipmentName" />
+                                                                    <br />}
+                <div class="form-actions">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-offset-0 col-xs-6" style="display:none;">
+            <div id="wrap">
+                <div id="slider-holder">
+                    @{ var data = (List<EventApplicationCore.Model.Equipment>)ViewBag.SliderEquipmentImages;
+
+                                    for (int i = 0; i < (data.Count()); i++)
+                                    {
+                        <div class="slide">
+                            <div style="background-color:black">@data[i].EquipmentName</div>
+                            <img src="/@data[i].EquipmentFilePath" width="400" height="300" alt="@data[i].EquipmentName">
+                        </div>
+                                        <div id="btn-nav-holder">
+                                            @if (i == 0)
+                                            {
+                            <img src="/images/bn-slide-on.png" width="8" height="8" alt="" /> }
+                                            else
+                                            {
+                            <img src="/images/bn-slide-off.png" width="8" height="8" alt="" />}
+                                        </div> } }
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+    </div>
+
+
+    @*FoodArea*@
+
+    <div class="container" style="margin-top:110px;">
+        @if (TempData["BookingFoodMessage"] != null)
+        {
+<p class="alert alert-success" id="successMessage">@TempData["BookingFoodMessage"]</p>}
+
+        @Html.ValidationSummary()
+        @Html.AntiForgeryToken()
+        <div class="col-xs-offset-0 col-xs-4">
+            <h3><span class="label label-info">Add Food Item</span></h3>
+            <div class="form-group">
+                <label class="control-label" asp-for="bookingFood.FoodType">Food Type</label>
+                <input asp-for="bookingFood.FoodType" id="FoodType1" value="1" type="radio" />
+                Veg
+                <input asp-for="bookingFood.FoodType" id="FoodType2" value="2" type="radio" />
+                Non-Veg
+                <span asp-validation-for="bookingFood.FoodType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="bookingFood.MealType">Meal Type</label>
+                <input asp-for="bookingFood.MealType" id="Radio1" value="1" type="radio" />
+                Lunch
+                <input asp-for="bookingFood.MealType" id="Radio2" value="2" type="radio" />
+                Dinner
+                <span asp-validation-for="bookingFood.MealType" class="text-danger"></span>
+            </div>
+           
+            <div class="form-group">
+                @Html.ValidationSummary(true)
+                @for (int i = 0; i < Model.bookingFood.FoodList.Count(); i++)
+                {
+    <input asp-for="@Model.bookingFood.FoodList[i].FoodChecked" type="checkbox" />
+                    <label asp-for="@Model.bookingFood.FoodList[i].FoodID">@Model.bookingFood.FoodList[i].FoodName</label>
+                                    <input type="hidden" asp-for="@Model.bookingFood.FoodList[i].FoodID" />
+                                                    <input type="hidden" asp-for="@Model.bookingFood.FoodList[i].FoodName" />
+                                                                    <br />}
+            </div>
+
+
+
+        </div>
+
+        <div class="col-xs-offset-0 col-xs-6" style="display:none;">
+            <div id="wrap">
+                <div id="slider-holder">
+                    @{ var datafood = (List<EventApplicationCore.Model.Food>)ViewBag.SliderFoodImages;
+
+                        for (int i = 0; i < (datafood.Count()); i++)
+                        {
+            <div class="slide">
+                <div style="background-color:black">@datafood[i].FoodName</div>
+                <img src="/@datafood[i].FoodFilePath" width="400" height="300" alt="@datafood[i].FoodName">
+            </div>
+                            <div id="btn-nav-holder">
+                                @if (i == 0)
+                                {
+                <img src="/images/bn-slide-on.png" width="8" height="8" alt="" /> }
+            else
+            {
+<img src="/images/bn-slide-off.png" width="8" height="8" alt="" />}
+                            </div> } }
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+    </div>
+    @*Flower*@
+
+    <div class="container">
+
+        <div class="col-xs-offset-0 col-xs-4">
+            <h3><span class="label label-info">Book Flowers</span></h3>
+            <div class="form-group">
+                @Html.ValidationSummary(true)
+                @Html.AntiForgeryToken()
+                @for (int i = 0; i < Model.bookingFlower.FlowerList.Count(); i++)
+                {
+    <input asp-for="@Model.bookingFlower.FlowerList[i].FlowerChecked" type="checkbox" />
+                    <label asp-for="@Model.bookingFlower.FlowerList[i].FlowerID">@Model.bookingFlower.FlowerList[i].FlowerName</label>
+                                    <input type="hidden" asp-for="@Model.bookingFlower.FlowerList[i].FlowerID" />
+                                                    <input type="hidden" asp-for="@Model.bookingFlower.FlowerList[i].FlowerName" />
+                                                                    <br />}
+                <div class="form-actions">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-offset-0 col-xs-6" style="display:none;">
+            <div id="wrap">
+                <div id="slider-holder">
+                    @{ var data2 = (List<EventApplicationCore.Model.Flower>)ViewBag.SliderFlowerImages;
+
+                        for (int i = 0; i < (data2.Count()); i++)
+                        {
+            <div class="slide">
+                <div style="background-color:black">@data2[i].FlowerName</div>
+                <img src="/@data2[i].FlowerFilePath" width="400" height="300" alt="@data2[i].FlowerName">
+            </div>
+                            <div id="btn-nav-holder">
+                                @if (i == 0)
+                                {
+                <img src="/images/bn-slide-on.png" width="8" height="8" alt="" /> }
+            else
+            {
+<img src="/images/bn-slide-off.png" width="8" height="8" alt="" />}
+                            </div> } }
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+    </div>
+
+    @*Light*@
+    <div class="container" style="margin-top:110px; ">
+
+        @Html.ValidationSummary(true)
+        @Html.AntiForgeryToken()
+        <div class="col-xs-offset-0 col-xs-4">
+            <h3><span class="label label-info">Book Lighting</span></h3>
+            <div class="form-group">
+                <label class="control-label" asp-for="bookingLight.LightType">Light Type</label>
+                <input asp-for="bookingLight.LightType" id="LightType1" value="1" type="radio" />
+                In Door
+                <input asp-for="bookingLight.LightType" id="LightType2" value="2" type="radio" />
+                Out Door
+                <span asp-validation-for="bookingLight.LightType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+
+                @for (int i = 0; i < Model.bookingLight.LightList.Count(); i++)
+                {
+    <input asp-for="@Model.bookingLight.LightList[i].LightChecked" type="checkbox" />
+                    <label asp-for="@Model.bookingLight.LightList[i].LightID">@Model.bookingLight.LightList[i].LightName</label>
+                                    <input type="hidden" asp-for="@Model.bookingLight.LightList[i].LightID" />
+                                                    <input type="hidden" asp-for="@Model.bookingLight.LightList[i].LightName" />
+                                                                    <br />}
+            </div>
+            <div class="form-actions">
+                <input id="Submit" type="submit" class="btn btn-success" value="Book" />
+                <input id="Cancel" type="button" class="btn btn-success" value="Cancel" />
+            </div>
+        </div>
+
+        <div class="col-xs-offset-0 col-xs-6" style="display:none;">
+            <div id="wrap">
+                <div id="slider-holder">
+                    @{ var data3 = (List<EventApplicationCore.Model.Light>)ViewBag.SliderLightImages;
+
+                        for (int i = 0; i < (data3.Count()); i++)
+                        {
+            <div class="slide">
+                <div style="background-color:black">@data3[i].LightName</div>
+                <img src="/@data3[i].LightFilePath" width="400" height="300" alt="@data3[i].LightName">
+            </div>
+                            <div id="btn-nav-holder">
+                                @if (i == 0)
+                                {
+                <img src="/images/bn-slide-on.png" width="8" height="8" alt="" /> }
+            else
+            {
+<img src="/images/bn-slide-off.png" width="8" height="8" alt="" />}
+                            </div> } }
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+    </div>
+</form>
+@*FoodScript*@
+<script type="text/javascript">
+    $(document).ready(function ()
+    {
+        $.getJSON('@Url.Content("~/")' + "BookFood/BindDishtype", function (data)
+        {
+            var items = '';
+            items += "<option value='" + "" + "'>" + "----Select----" + "</option>";
+            $("#bookingFood_DishType").empty();
+            $.each(data, function (i, subcategory)
+            {
+             items += "<option value='" + subcategory.ID + "'>" + subcategory.Dishtype + "</option>";
+
+            });
+            $('#bookingFood_DishType').html(items);
+
+               if ('@Model.bookingFood.DishType' !='')
+               {
+                   $('#bookingFood_DishType').val('@Model.bookingFood.DishType');
+               }`
+        });
+    });
+</script>
