@@ -28,10 +28,20 @@ namespace EventApplicationCore.Controllers
         [HttpGet]
         public IActionResult AllBookings()
         {
+            var result = _IBookingVenue.ShowBookingDetail();
+            if (result.Count() > 0)
+            {
+                var v = _IBookingVenue.ShowAllBooking("", "", "");
+
+                var data = v.ToList();
+                return View(data);
+            }
+            else
+            {
+                return View(new List< BookingDetailTemp>());
+            }
             return View();
         }
-
-
         public JsonResult LoadAllBookings()
         {
             var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
