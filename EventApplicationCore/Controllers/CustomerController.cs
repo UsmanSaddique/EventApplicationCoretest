@@ -30,6 +30,10 @@ namespace EventApplicationCore.Controllers
         {
             return View();
         }
+        public IActionResult ChatBot()
+        {
+            return View();
+        }
 
         [HttpGet]
         public IActionResult ChangePassword()
