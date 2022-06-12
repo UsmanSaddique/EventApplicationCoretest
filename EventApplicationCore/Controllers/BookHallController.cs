@@ -73,20 +73,22 @@ namespace EventApplicationCore.Controllers
                      
                     ModelState.Clear();
                     ViewData["BookingMessage"] = "Venue Booked Successfully";
-                    return View("Index");
+                    return RedirectToAction(nameof(ShowAll));
                 }
                 else
                 {
                    
-                    return View("Index", BookingVenue);
+                    return RedirectToAction(nameof(ShowAll));
                 }
             }
             else
             {
              
-                return View("Index", BookingVenue);
+                return RedirectToAction(nameof(ShowAll));
             }
         }
+       
+       
         public IActionResult ShowBooking()
         {
             var user = Convert.ToInt32(HttpContext.Session.GetString("UserID"));

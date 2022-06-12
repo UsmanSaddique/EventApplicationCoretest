@@ -3,177 +3,127 @@
 @{ Layout = "~/Views/Shared/_LayoutCustomer.cshtml"; }
 
 <style>
- .box-shadow {
-  box-shadow: 0px 0px 18px -3px rgba(143, 143, 143, 0.5);
+   
+* {
+  box-sizing: border-box;
 }
 
-.card:hover {
-  box-shadow: 0px 0px 20px -3px rgba(143, 143, 143, 0.75);
+.page-contain {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background: #E7F3F1;
+  border: 0.75em solid white;
+  padding: 2em;
+  font-family: "Open Sans", sans-serif;
 }
 
-.box-shadow-dark {
-  box-shadow: 3px 3px 11px -3px rgba(0, 0, 0, 0.25);
-}
-
-body {
-  background-color: white;
-  font-family: "Open Sans", Arial, Verdana;
-}
-
-section {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-}
-
-h6 {
-  color: #990000;
-}
-
-.font-weight-bolder {
-  font-weight: 900;
-}
-
-.display-1, .display-2, .display-3, .display-4 {
-  font-weight: 900;
-}
-
-.heading-big {
-  font-weight: 800;
-  text-transform: uppercase;
-  color: red;
-  margin: 0;
-  padding: 0.15rem 0;
-  line-height: 1.2;
-  font-size: 2rem;
-  transition: color 0.5s ease-in, border-color 0.5s ease-in-out;
-}
-.heading-big-square {
-  padding: 1rem 1rem;
-  border: 10px solid red;
-  margin: 0.5rem auto 1rem auto;
-}
-.heading-big:hover {
-  color: #ff9900;
-  border-color: #ff9900;
-}
-
-.card {
-  transition: 0.5s ease;
-  border-radius: 0;
-  transform: perspective(3em) rotateX(0deg) rotateY(-1.175deg) rotateZ(-1deg);
-}
-.card-header {
-  border-radius: 0;
-}
-.card-footer {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-.card-header, .card-footer {
-  transition: 0.5s ease;
-}
-.card:hover {
-  border-color: #ffc107;
-  transform: perspective(0em) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
-}
-.card:hover .card-header, .card:hover .card-footer {
-  color: #ba8b00;
-  border-color: #ffc107;
-  background-color: #ffeeba;
-}
-.card:hover .promotion-promo {
-  transform: scale(1.175) translateY(2.5px);
-  transform-origin: left center;
-}
-.card:hover .promotion-price {
-  transform: translate(2.5px, 17.5px) scale(1.15);
-  transform-origin: center right;
-}
-.card-body {
-  position: relative;
-  z-index: 0;
+.data-card {
+  display: flex;
+  flex-direction: column;
+  max-width: 20.75em;
+  min-height: 20.75em;
   overflow: hidden;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  border-radius: 0.5em;
+  text-decoration: none;
+  background: white;
+  margin: 1em;
+  padding: 2.75em 2.5em;
+  box-shadow: 0 1.5em 2.5em -0.5em rgba(0, 0, 0, 0.1);
+  transition: transform 0.45s ease, background 0.45s ease;
 }
-.card .btn {
-  font-weight: bold;
+.data-card h3 {
+  color: #2E3C40;
+  font-size: 3.5em;
+  font-weight: 600;
+  line-height: 1;
+  padding-bottom: 0.5em;
+  margin: 0 0 0.142857143em;
+  border-bottom: 2px solid #753BBD;
+  transition: color 0.45s ease, border 0.45s ease;
+}
+.data-card h4 {
+  color: #627084;
   text-transform: uppercase;
+  font-size: 1.125em;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  margin: 0 0 1.777777778em;
+  transition: color 0.45s ease;
+}
+.data-card p {
+  opacity: 0;
+  color: #FFFFFF;
+  font-weight: 600;
+  line-height: 1.8;
+  margin: 0 0 1.25em;
+  transform: translateY(-1em);
+  transition: opacity 0.45s ease, transform 0.5s ease;
+}
+.data-card .link-text {
+  display: block;
+  color: #753BBD;
+  font-size: 1.125em;
+  font-weight: 600;
+  line-height: 1.2;
+  margin: auto 0 0;
+  transition: color 0.45s ease;
+}
+.data-card .link-text svg {
+  margin-left: 0.5em;
+  transition: transform 0.6s ease;
+}
+.data-card .link-text svg path {
+  transition: fill 0.45s ease;
+}
+.data-card:hover {
+  background: #753BBD;
+  transform: scale(1.02);
+}
+.data-card:hover h3 {
+  color: #FFFFFF;
+  border-bottom-color: #A754C4;
+}
+.data-card:hover h4 {
+  color: #FFFFFF;
+}
+.data-card:hover p {
+  opacity: 1;
+  transform: none;
+}
+.data-card:hover .link-text {
+  color: #FFFFFF;
+}
+.data-card:hover .link-text svg {
+  -webkit-animation: point 1.25s infinite alternate;
+          animation: point 1.25s infinite alternate;
+}
+.data-card:hover .link-text svg path {
+  fill: #FFFFFF;
 }
 
-.promotion-promo {
-  font-weight: 700;
-  font-size: 1.15rem;
-  color: #ffc107;
-  font-family: "Montserrat", sans-serif;
-  text-decoration: line-through;
-  transition: 0.25s linear;
-}
-.promotion-price {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  background: #ffc107;
-  width: 92px;
-  height: 92px;
-  padding-bottom: 0rem;
-  padding-top: 1.25rem;
-  text-align: center;
-  font-weight: 700;
-  font-family: "Montserrat", sans-serif;
-  font-size: 1.1rem;
-  border-radius: 5rem;
-  color: #fff;
-  z-index: -1;
-  transform: translate(5px, 27.5px) rotate(-9deg);
-  border: 1px dashed #fff;
-  transition: 0.25s linear;
-  line-height: 1.15;
-}
-.promotion-price-desc {
-  padding: 0;
-  margin: 0 auto;
-  text-transform: uppercase;
-  font-size: 0.9rem;
-  display: block;
-}
-.promotion-price-text {
-  padding: 0;
-  margin: 0 auto;
-  font-weight: 900;
-}
-
-.card-animate {
-  counter-reset: section;
-}
-.card-animate .card-body:before {
-  transition: 0.5s ease;
-  counter-increment: section;
-  content: "" counter(section) "";
-  display: block;
-  font-size: 15rem;
-  font-weight: 900;
-  position: absolute;
-  bottom: 5rem;
-  line-height: 0;
-  left: -0.85rem;
-  padding: 0;
-  margin: 0;
-  color: rgba(0, 0, 0, 0.1);
-  z-index: 0;
-}
-.card-animate .card:hover .card-body:before {
-  transform: translate(10px, -10px);
-}
-.card-animate .card-text {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
-.card-animate .card-title {
-  font-weight: 900;
-  text-transform: uppercase;
-}
+ 
+ 
 </style>
+<section class="page-contain">
+    @foreach (var item in Model)
+    { <a asp-action="Detail" asp-route-id="@item.Id" class="data-card">
+          <h3>@item.TourName</h3>
+          <h4> @item.TourFrom - @item.TourTo</h4>
+          <p>Tour!</p>
+          <span class="link-text">
+              $ @item.PerHead
+              <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#753BBD" />
+              </svg>
+          </span>
+</a>}
+        
+        
+    </section>
+ 
 <div class="container-fluid" >
     <div class="col-lg-12" >
         <div class="ibox float-e-margins" >
@@ -184,31 +134,7 @@ h6 {
 
                         <a class="btn btn-secondary pull-left m-t-n-xs" asp-controller="BookingTour" asp-action="ShowBooking"> <strong> Show All Your Booking  </strong> </a>
                     </div>
-                    <br />
-                    <br />
-                    <div class="row" style="display:flex; justify-content:center">
-
-                        @foreach (var item in Model)
-                        {
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-3">
-                        <div class="card h-100 mb-4">
-                            <div class="card-header">
-                                <h5 class="card-title m-0 p-0 font-weight-bolder text-secondary">@item.TourName</h5>
-                            </div>
-                            <div class="card-body text-left">
-                                <p class="card-text">@item.TourFrom - @item.TourTo </p>
-                                <span class="font-lead-base font-weight-bold text-muted"> Tour!</span>
-                                <div class="promotion-promo"></div>
-                                <div class="promotion-price">
-                                    <div class="promotion-price-desc">Now</div>
-                                    <div class="promotion-price-text">$ @item.PerHead</div>
-                                </div>
-                            </div>
-                            <div class="card-footer"><a asp-action="Detail" asp-route-id="@item.Id" class="btn btn-warning">Book Now</a></div>
-                        </div>
-                    </div>}
-                    </div>
-                    <br />
+                  
                     <div class="container-fluid">
                         <table class="table table-bordered table-striped dataTables-example">
                             <thead>
