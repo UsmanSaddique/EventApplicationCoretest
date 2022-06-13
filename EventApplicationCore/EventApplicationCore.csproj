@@ -30,6 +30,7 @@
   <ItemGroup>
     <Folder Include="Views\Category\" />
     <Folder Include="wwwroot\MaterialDashboadrd\" />
+    <Folder Include="wwwroot\CustomerDashboard\" />
     <Folder Include="wwwroot\NewFolder\" />
   </ItemGroup>
 
